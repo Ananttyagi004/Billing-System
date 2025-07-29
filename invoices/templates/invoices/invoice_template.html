@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head><title>Invoice {{ invoice.invoice_number }}</title></head>
+<body>
+  <h1>Invoice {{ invoice.invoice_number }}</h1>
+  <p>Customer: {{ invoice.user.email }}</p>
+  <p>Date: {{ invoice.date }}</p>
+
+  <table border="1" cellpadding="5">
+    <tr><th>Product</th><th>Qty</th><th>Subtotal</th><th>Tax</th><th>Total</th></tr>
+    {% for line in invoice.lines.all %}
+      <tr>
+        <td>{{ line.product.name }}</td>
+        <td>{{ line.quantity }}</td>
+        <td>${{ line.subtotal }}</td>
+        <td>${{ line.tax_amount }}</td>
+        <td>${{ line.total }}</td>
+      </tr>
+    {% endfor %}
+  </table>
+
+  <p><strong>Total Amount: ${{ invoice.total_amount }}</strong></p>
+</body>
+</html>
